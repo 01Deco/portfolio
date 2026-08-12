@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskFlow</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>TaskFlow</h1>
+
+        <p>Organize suas tarefas de forma simples.</p>
+
+        <p id="taskCounter">0 tarefas • 0 concluídas</p>
+
+        <div class="filters">
+
+            <button id="allTasksButton">Todas</button>
+
+            <button id="pendingTasksButton">Pendentes</button>
+
+            <button id="completedTasksButton">Concluídas</button>
+
+        </div>
+
+        <div class="task-input">
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Digite uma tarefa..."
+            >
+
+            <button id="addTaskButton">
+                Adicionar
+            </button>
+
+        </div>
+
+        <ul id="taskList"></ul>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
