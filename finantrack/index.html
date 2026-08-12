@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>FinanTrack | Controle Financeiro</title>
+
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+```
+<!-- Cabeçalho -->
+<header class="header">
+    <div class="container header-content">
+
+        <div class="logo">
+            <span>💰</span>
+            <h1>FinanTrack</h1>
+        </div>
+
+        <p>Controle Financeiro Pessoal</p>
+
+    </div>
+</header>
+
+
+<!-- Conteúdo principal -->
+<main class="container">
+
+    <!-- Resumo financeiro -->
+    <section class="summary">
+
+        <div class="summary-card balance">
+            <span class="card-icon">💰</span>
+
+            <div>
+                <p>Saldo atual</p>
+                <h2 id="balance">R$ 0,00</h2>
+            </div>
+        </div>
+
+
+        <div class="summary-card income">
+            <span class="card-icon">📈</span>
+
+            <div>
+                <p>Receitas</p>
+                <h2 id="income">R$ 0,00</h2>
+            </div>
+        </div>
+
+
+        <div class="summary-card expense">
+            <span class="card-icon">📉</span>
+
+            <div>
+                <p>Despesas</p>
+                <h2 id="expense">R$ 0,00</h2>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Controles -->
+    <section class="controls">
+
+        <button id="openModal" class="btn-primary">
+            + Nova transação
+        </button>
+
+        <div class="filter">
+            <label for="monthFilter">Período:</label>
+
+            <input
+                type="month"
+                id="monthFilter"
+            >
+        </div>
+
+    </section>
+
+
+    <!-- Dashboard -->
+    <section class="dashboard">
+
+        <!-- Gráfico -->
+        <div class="chart-container">
+
+            <div class="section-header">
+                <h2>Resumo financeiro</h2>
+                <span>Receitas x Despesas</span>
+            </div>
+
+            <div class="chart">
+                <div class="chart-placeholder">
+                    📊
+                    <p>
+                        O gráfico será exibido aqui
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Categorias -->
+        <div class="categories-container">
+
+            <div class="section-header">
+                <h2>Categorias</h2>
+                <span>Despesas</span>
+            </div>
+
+            <div id="categories">
+                <p class="empty-message">
+                    Nenhuma categoria cadastrada.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Transações -->
+    <section class="transactions">
+
+        <div class="section-header transactions-header">
+
+            <div>
+                <h2>Transações</h2>
+                <p>Histórico financeiro</p>
+            </div>
+
+            <select id="typeFilter">
+                <option value="all">Todas</option>
+                <option value="income">Receitas</option>
+                <option value="expense">Despesas</option>
+            </select>
+
+        </div>
+
+
+        <!-- Cabeçalho da tabela -->
+        <div class="transaction-table">
+
+            <div class="table-header">
+                <span>Descrição</span>
+                <span>Categoria</span>
+                <span>Data</span>
+                <span>Valor</span>
+                <span>Ação</span>
+            </div>
+
+
+            <!-- Lista preenchida pelo JavaScript -->
+            <div id="transactionList">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        💸
+                    </div>
+
+                    <h3>Nenhuma transação cadastrada</h3>
+
+                    <p>
+                        Clique em "Nova transação" para adicionar
+                        sua primeira movimentação.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Modal de nova transação -->
+<div
+    id="transactionModal"
+    class="modal"
+    aria-hidden="true"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Nova transação</h2>
+                <p>Adicione uma receita ou despesa.</p>
+            </div>
+
+            <button
+                id="closeModal"
+                class="close-modal"
+                type="button"
+                aria-label="Fechar"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <!-- Formulário -->
+        <form id="transactionForm">
+
+            <!-- Tipo -->
+            <div class="form-group">
+
+                <label for="transactionType">
+                    Tipo
+                </label>
+
+                <select
+                    id="transactionType"
+                    required
+                >
+                    <option value="">
+                        Selecione o tipo
+                    </option>
+
+                    <option value="income">
+                        Receita
+                    </option>
+
+                    <option value="expense">
+                        Despesa
+                    </option>
+                </select>
+
+            </div>
+
+
+            <!-- Descrição -->
+            <div class="form-group">
+
+                <label for="description">
+                    Descrição
+                </label>
+
+                <input
+                    type="text"
+                    id="description"
+                    placeholder="Ex: Salário, mercado..."
+                    required
+                >
+
+            </div>
+
+
+            <!-- Valor -->
+            <div class="form-group">
+
+                <label for="amount">
+                    Valor
+                </label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    placeholder="0,00"
+                    min="0.01"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Categoria -->
+            <div class="form-group">
+
+                <label for="category">
+                    Categoria
+                </label>
+
+                <select
+                    id="category"
+                    required
+                >
+
+                    <option value="">
+                        Selecione uma categoria
+                    </option>
+
+                    <option value="salario">
+                        💼 Salário
+                    </option>
+
+                    <option value="alimentacao">
+                        🍔 Alimentação
+                    </option>
+
+                    <option value="transporte">
+                        🚗 Transporte
+                    </option>
+
+                    <option value="moradia">
+                        🏠 Moradia
+                    </option>
+
+                    <option value="lazer">
+                        🎮 Lazer
+                    </option>
+
+                    <option value="saude">
+                        ❤️ Saúde
+                    </option>
+
+                    <option value="educacao">
+                        📚 Educação
+                    </option>
+
+                    <option value="compras">
+                        🛒 Compras
+                    </option>
+
+                    <option value="outros">
+                        📦 Outros
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Data -->
+            <div class="form-group">
+
+                <label for="date">
+                    Data
+                </label>
+
+                <input
+                    type="date"
+                    id="date"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Botões -->
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    id="cancelTransaction"
+                    class="btn-secondary"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    Salvar transação
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+```
+
+</body>
+
+</html>
